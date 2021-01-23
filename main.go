@@ -30,7 +30,7 @@ func main() {
 		if i == 0 {
 			phrase = strings.Title(words[r1.Intn(len(words))])
 		} else {
-			phrase = phrase + "-" + words[r1.Intn(len(words))]
+			phrase = phrase + "-" + strings.ToLower(words[r1.Intn(len(words))])
 		}
 	}
 
