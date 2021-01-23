@@ -55,7 +55,7 @@ func optimized() {
 			}
 		}
 
-		if allowWord2(attemptedWord) {
+		if allowWord(attemptedWord) {
 			wordsInPhrase = append(wordsInPhrase, attemptedWord)
 		}
 	}
@@ -91,9 +91,4 @@ func lineCounter(r io.Reader) (int, error) {
 			return count, err
 		}
 	}
-}
-
-func allowWord2(word string) bool {
-	// Not a proper noun
-	return strings.ToLower(word) == word && len(word) > 3 && len(word) < 10
 }
