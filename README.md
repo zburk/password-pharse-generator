@@ -3,6 +3,12 @@ Password phrase generator written with Go inspired by https://randompassphrasege
 
 Uses the included dictionary from Apple `/usr/share/dict/words` to source words
 
+## Demo
+```
+$ ./password-phrase-generator 
+Frown-count-let3
+```
+
 ## First Attempt
 Loads all words from dictionary file into a slice. Then generates a random index until 3 words are found to generate the phrase.
 
