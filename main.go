@@ -1,25 +1,34 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
 	"math/rand"
+	"os"
 	"strconv"
 	"strings"
 	"time"
 )
 
 func main() {
-	words := [10]string{
-		"dog",
-		"cat",
-		"horse",
-		"battery",
-		"television",
-		"desk",
-		"table",
-		"laptop",
-		"mask",
-		"talent",
+	f, err := os.Open("words")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer f.Close()
+
+	scanner := bufio.NewScanner(f)
+
+	var words []string
+	for scanner.Scan() {
+		words = append(words, scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
 	}
 
 	s1 := rand.NewSource(time.Now().UnixNano())
