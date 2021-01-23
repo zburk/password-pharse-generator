@@ -35,14 +35,25 @@ func main() {
 	r1 := rand.New(s1)
 
 	var phrase string
-	for i := 0; i < 3; i++ {
-		if i == 0 {
-			phrase = strings.Title(words[r1.Intn(len(words))])
-		} else {
-			phrase = phrase + "-" + strings.ToLower(words[r1.Intn(len(words))])
+	for i := 0; i < 3; {
+		randomIndex := r1.Intn(len(words))
+		attemptedWord := words[randomIndex]
+
+		if allowWord(attemptedWord) {
+			if i == 0 {
+				phrase = strings.Title(attemptedWord)
+			} else {
+				phrase = phrase + "-" + strings.ToLower(attemptedWord)
+			}
+			i++
 		}
 	}
 
 	phrase = phrase + strconv.Itoa(r1.Intn(10))
 	fmt.Println(phrase)
+}
+
+func allowWord(word string) bool {
+	// Not a proper noun
+	return strings.ToLower(word) == word && len(word) > 3 && len(word) < 10
 }
