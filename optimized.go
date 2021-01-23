@@ -24,11 +24,8 @@ func optimized() {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 
-	f, err := os.Open("words")
-	if err != nil {
-		log.Fatal(err)
-	}
-	reader := bufio.NewReader(f)
+	fileLineCount.Seek(0, 0)
+	reader := bufio.NewReader(fileLineCount)
 
 	var wordLookup []string
 	var wordsInPhrase []string
