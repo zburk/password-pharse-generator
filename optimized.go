@@ -18,6 +18,7 @@ func optimized() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer fileLineCount.Close()
 	totalLineCount, _ := lineCounter(fileLineCount)
 
 	s1 := rand.NewSource(time.Now().UnixNano())
