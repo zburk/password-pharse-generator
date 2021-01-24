@@ -2,9 +2,11 @@ package main
 
 import (
 	"bufio"
+	crand "crypto/rand"
 	"fmt"
 	"log"
-	"math/rand"
+	"math/big"
+	mrand "math/rand"
 	"os"
 	"strconv"
 	"strings"
@@ -31,14 +33,19 @@ func unoptimized() {
 		log.Fatal(err)
 	}
 
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
-
 	var phrase string
 	for i := 0; i < 3; {
-		randomIndex := r1.Intn(len(words))
-		attemptedWord := words[randomIndex]
+		randomIndex, err := crand.Int(crand.Reader, big.NewInt(int64(len(words))))
+		if err != nil {
+			log.Println(err)
+		}
 
+		randomIndexInt, err := strconv.Atoi(randomIndex.String())
+		if err != nil {
+			log.Println(err)
+		}
+
+		attemptedWord := words[randomIndexInt]
 		if allowWord(attemptedWord) {
 			if i == 0 {
 				phrase = strings.Title(attemptedWord)
@@ -48,6 +55,9 @@ func unoptimized() {
 			i++
 		}
 	}
+
+	s1 := mrand.NewSource(time.Now().UnixNano())
+	r1 := mrand.New(s1)
 
 	phrase = phrase + strconv.Itoa(r1.Intn(10))
 	fmt.Println(phrase)

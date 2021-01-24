@@ -3,9 +3,11 @@ package main
 import (
 	"bufio"
 	"bytes"
+	crand "crypto/rand"
 	"fmt"
 	"io"
 	"log"
+	"math/big"
 	"math/rand"
 	"os"
 	"strconv"
@@ -21,9 +23,6 @@ func optimized() {
 	defer fileLineCount.Close()
 	totalLineCount, _ := lineCounter(fileLineCount)
 
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
-
 	fileLineCount.Seek(0, 0)
 	reader := bufio.NewReader(fileLineCount)
 
@@ -32,13 +31,21 @@ func optimized() {
 
 	for len(wordsInPhrase) < 3 {
 		// Generate a random index
-		randomIndex := r1.Intn(totalLineCount)
-		var attemptedWord string
+		randomIndex, err := crand.Int(crand.Reader, big.NewInt(int64(totalLineCount)))
+		if err != nil {
+			log.Println(err)
+		}
 
-		if randomIndex < len(wordLookup) {
-			attemptedWord = wordLookup[randomIndex]
+		randomIndexInt, err := strconv.Atoi(randomIndex.String())
+		if err != nil {
+			log.Println(err)
+		}
+
+		var attemptedWord string
+		if randomIndexInt < len(wordLookup) {
+			attemptedWord = wordLookup[randomIndexInt]
 		} else {
-			for randomIndex > len(wordLookup) {
+			for randomIndexInt > len(wordLookup) {
 				line, err := reader.ReadString('\n')
 				line = strings.TrimSuffix(line, "\n")
 
@@ -47,7 +54,7 @@ func optimized() {
 				}
 
 				wordLookup = append(wordLookup, line)
-				if randomIndex == len(wordLookup) {
+				if randomIndexInt == len(wordLookup) {
 					attemptedWord = line
 				}
 			}
@@ -67,6 +74,8 @@ func optimized() {
 		}
 	}
 
+	s1 := rand.NewSource(time.Now().UnixNano())
+	r1 := rand.New(s1)
 	phrase = phrase + strconv.Itoa(r1.Intn(10))
 	fmt.Println(phrase)
 }
