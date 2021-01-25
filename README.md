@@ -1,7 +1,9 @@
 # Password Phrase Generator
 Password phrase generator written with Go inspired by https://randompassphrasegenerator.com/
 
-Uses the included dictionary from Apple `/usr/share/dict/words` to source words
+Uses the [10,000 most commonly used words](https://github.com/first20hours/google-10000-english/blob/master/google-10000-english-no-swears.txt) for ease of typing the word out.
+
+After running, it will update the computer's clipboard with the generated password to be easily pasted wherever.
 
 ## Demo
 ```
