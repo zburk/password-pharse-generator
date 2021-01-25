@@ -8,7 +8,7 @@ After running, it will update the computer's clipboard with the generated passwo
 ## Demo
 ```
 $ ./password-phrase-generator 
-Frown-count-let3
+Ideas-rick-serves5
 ```
 
 ## First Attempt
