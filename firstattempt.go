@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	crand "crypto/rand"
-	"fmt"
 	"log"
 	"math/big"
 	mrand "math/rand"
@@ -13,7 +12,7 @@ import (
 	"time"
 )
 
-func unoptimized() {
+func unoptimized() string {
 	f, err := os.Open("words")
 
 	if err != nil {
@@ -60,5 +59,5 @@ func unoptimized() {
 	r1 := mrand.New(s1)
 
 	phrase = phrase + strconv.Itoa(r1.Intn(10))
-	fmt.Println(phrase)
+	return phrase
 }

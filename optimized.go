@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	crand "crypto/rand"
-	"fmt"
 	"io"
 	"log"
 	"math/big"
@@ -15,7 +14,7 @@ import (
 	"time"
 )
 
-func optimized() {
+func optimized() string {
 	fileLineCount, err := os.Open("words")
 	if err != nil {
 		log.Fatal(err)
@@ -77,7 +76,7 @@ func optimized() {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
 	phrase = phrase + strconv.Itoa(r1.Intn(10))
-	fmt.Println(phrase)
+	return phrase
 }
 
 // https://stackoverflow.com/questions/24562942/golang-how-do-i-determine-the-number-of-lines-in-a-file-efficiently
