@@ -7,7 +7,7 @@ import (
 	"io"
 	"log"
 	"math/big"
-	"math/rand"
+	mrand "math/rand"
 	"os"
 	"strconv"
 	"strings"
@@ -73,8 +73,8 @@ func optimized() string {
 		}
 	}
 
-	s1 := rand.NewSource(time.Now().UnixNano())
-	r1 := rand.New(s1)
+	s1 := mrand.NewSource(time.Now().UnixNano())
+	r1 := mrand.New(s1)
 	phrase = phrase + strconv.Itoa(r1.Intn(10))
 	return phrase
 }
