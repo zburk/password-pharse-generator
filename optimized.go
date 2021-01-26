@@ -7,14 +7,12 @@ import (
 	"io"
 	"log"
 	"math/big"
-	mrand "math/rand"
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
-func optimized() string {
+func optimized() []string {
 	fileLineCount, err := os.Open("words")
 	if err != nil {
 		log.Fatal(err)
@@ -64,19 +62,7 @@ func optimized() string {
 		}
 	}
 
-	var phrase string
-	for i := 0; i < 3; i++ {
-		if i == 0 {
-			phrase = strings.Title(wordsInPhrase[i])
-		} else {
-			phrase = phrase + "-" + strings.ToLower(wordsInPhrase[i])
-		}
-	}
-
-	s1 := mrand.NewSource(time.Now().UnixNano())
-	r1 := mrand.New(s1)
-	phrase = phrase + strconv.Itoa(r1.Intn(10))
-	return phrase
+	return wordsInPhrase
 }
 
 // https://stackoverflow.com/questions/24562942/golang-how-do-i-determine-the-number-of-lines-in-a-file-efficiently
